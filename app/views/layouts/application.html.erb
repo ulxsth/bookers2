@@ -90,6 +90,9 @@
     
     <main>
       <div class='container mt-3'>
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
         <%= yield %>
       </div>
     </main>
