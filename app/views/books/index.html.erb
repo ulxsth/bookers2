@@ -1,11 +1,11 @@
 <div class='container'>
   <div class='row'>
   <!-- エラー表示部 -->
-  <% if @book.errors.any? %>
+  <% if @new_book.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@book.errors.count, "error") %> prohibited this model from being saved:</h2>
+    <h2><%= pluralize(@new_book.errors.count, "error") %> prohibited this model from being saved:</h2>
     <ul>
-      <% @book.errors.full_messages.each do |msg| %>
+      <% @new_book.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>
@@ -24,7 +24,11 @@
         </tr>
         <% @books.each do |book| %>
           <tr>
-            <td><%= image_tag book.user.get_image(100, 100) %></td>
+            <td>
+              <%= link_to user_path(book.user.id) do %>
+                <%= image_tag book.user.get_profile_image(100, 100) %>
+              <% end %>  
+            </td>
             <td>
               <%= link_to book_path(book.id) do %>
                   <%= book.title %>

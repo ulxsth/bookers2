@@ -1,0 +1,369 @@
+
+Bookモデルのテスト
+  バリデーションのテスト
+    titleカラム
+       空欄でないこと 
+    bodyカラム
+       空欄でないこと 
+       200文字以下であること: 200文字は〇 
+       200文字以下であること: 201文字は× 
+  アソシエーションのテスト
+    Userモデルとの関係
+       N:1となっている 
+
+Userモデルのテスト
+  バリデーションのテスト
+    nameカラム
+       空欄でないこと 
+       2文字以上であること: 1文字は× 
+       2文字以上であること: 2文字は〇 
+       20文字以下であること: 20文字は〇 
+       20文字以下であること: 21文字は× 
+       一意性があること 
+    introductionカラム
+       50文字以下であること: 50文字は〇 
+       50文字以下であること: 51文字は× 
+  アソシエーションのテスト
+    Bookモデルとの関係
+       1:Nとなっている 
+
+[STEP1] ユーザログイン前のテスト
+  トップ画面のテスト
+    表示内容の確認
+       URLが正しい 
+       Log inリンクが表示される: 青色のボタンの表示が「Log in」である 
+       Log inリンクの内容が正しい 
+       Sign upリンクが表示される: 緑色のボタンの表示が「Sign up」である 
+       Sign upリンクの内容が正しい 
+  アバウト画面のテスト
+    表示内容の確認
+       URLが正しい 
+  ヘッダーのテスト: ログインしていない場合
+    表示内容の確認
+       Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である 
+       Homeリンクが表示される: 左上から2番目のリンクが「Home」である 
+       Aboutリンクが表示される: 左上から3番目のリンクが「About」である 
+       Sign upリンクが表示される: 左上から4番目のリンクが「Sign up」である 
+       Log inリンクが表示される: 左上から5番目のリンクが「Log in」である 
+    リンクの内容を確認
+       Bookersを押すと、トップ画面に遷移する 
+       Homeを押すと、トップ画面に遷移する 
+       Aboutを押すと、アバウト画面に遷移する 
+       Sign upを押すと、新規登録画面に遷移する 
+       Log inを押すと、ログイン画面に遷移する 
+  ユーザ新規登録のテスト
+    表示内容の確認
+       URLが正しい 
+       「Sign up」と表示される 
+       nameフォームが表示される 
+       emailフォームが表示される 
+       passwordフォームが表示される 
+       password_confirmationフォームが表示される 
+       Sign upボタンが表示される 
+    新規登録成功のテスト
+       正しく新規登録される 
+       新規登録後のリダイレクト先が、新規登録できたユーザの詳細画面になっている 
+  ユーザログイン
+    表示内容の確認
+       URLが正しい 
+       「Log in」と表示される 
+       nameフォームが表示される 
+       passwordフォームが表示される 
+       Log inボタンが表示される 
+       emailフォームは表示されない 
+    ログイン成功のテスト
+       ログイン後のリダイレクト先が、ログインしたユーザの詳細画面になっている 
+    ログイン失敗のテスト
+       ログインに失敗し、ログイン画面にリダイレクトされる 
+  ヘッダーのテスト: ログインしている場合
+    ヘッダーの表示を確認
+       Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である 
+       Homeリンクが表示される: 左上から2番目のリンクが「Home」である 
+       Usersリンクが表示される: 左上から3番目のリンクが「Users」である 
+       Booksリンクが表示される: 左上から4番目のリンクが「Books」である 
+       Log outリンクが表示される: 左上から5番目のリンクが「Log out」である 
+  ユーザログアウトのテスト
+    ログアウト機能のテスト
+       正しくログアウトできている: ログアウト後のリダイレクト先においてAbout画面へのリンクが存在する 
+       ログアウト後のリダイレクト先が、トップになっている 
+
+[STEP2] ユーザログイン後のテスト
+  ヘッダーのテスト: ログインしている場合
+    リンクの内容を確認: ※logoutは『ユーザログアウトのテスト』でテスト済みになります。
+       Homeを押すと、自分のユーザ詳細画面に遷移する 
+       Usersを押すと、ユーザ一覧画面に遷移する 
+       Booksを押すと、投稿一覧画面に遷移する 
+  投稿一覧画面のテスト
+    表示内容の確認
+       URLが正しい 
+       自分と他人の画像のリンク先が正しい (FAILED - 1) 
+       自分の投稿と他人の投稿のタイトルのリンク先がそれぞれ正しい 
+       自分の投稿と他人の投稿のオピニオンが表示される 
+    サイドバーの確認
+       自分の名前と紹介文が表示される 
+       自分のユーザ編集画面へのリンクが存在する 
+       「New book」と表示される (FAILED - 2) 
+       titleフォームが表示される 
+       titleフォームに値が入っていない 
+       bodyフォームが表示される 
+       bodyフォームに値が入っていない 
+       Create Bookボタンが表示される 
+    投稿成功のテスト
+       自分の新しい投稿が正しく保存される 
+       リダイレクト先が、保存できた投稿の詳細画面になっている 
+  自分の投稿詳細画面のテスト
+    表示内容の確認
+       URLが正しい 
+       「Book detail」と表示される (FAILED - 3) 
+       ユーザ画像・名前のリンク先が正しい 
+       投稿のtitleが表示される 
+       投稿のbodyが表示される 
+       投稿の編集リンクが表示される 
+       投稿の削除リンクが表示される 
+    サイドバーの確認
+       自分の名前と紹介文が表示される 
+       自分のユーザ編集画面へのリンクが存在する 
+       「New book」と表示される (FAILED - 4) 
+       titleフォームが表示される 
+       titleフォームに値が入っていない 
+       bodyフォームが表示される 
+       bodyフォームに値が入っていない (FAILED - 5) 
+       Create Bookボタンが表示される 
+    投稿成功のテスト
+       自分の新しい投稿が正しく保存される (FAILED - 6) 
+    編集リンクのテスト
+       編集画面に遷移する 
+    削除リンクのテスト
+       application.html.erbにjavascript_pack_tagを含んでいる 
+       正しく削除される 
+       リダイレクト先が、投稿一覧画面になっている 
+  自分の投稿編集画面のテスト
+    表示の確認
+       URLが正しい 
+       「Editing Book」と表示される 
+       title編集フォームが表示される 
+       body編集フォームが表示される 
+       Update Bookボタンが表示される 
+       Showリンクが表示される 
+       Backリンクが表示される 
+    編集成功のテスト
+       titleが正しく更新される 
+       bodyが正しく更新される 
+       リダイレクト先が、更新した投稿の詳細画面になっている (FAILED - 7) 
+  ユーザ一覧画面のテスト
+    表示内容の確認
+       URLが正しい 
+       自分と他人の画像が表示される: fallbackの画像がサイドバーの1つ＋一覧(2人)の2つの計3つ存在する 
+       自分と他人の名前がそれぞれ表示される 
+       自分と他人のshowリンクがそれぞれ表示される 
+    サイドバーの確認
+       自分の名前と紹介文が表示される 
+       自分のユーザ編集画面へのリンクが存在する 
+       「New book」と表示される (FAILED - 8) 
+       titleフォームが表示される 
+       titleフォームに値が入っていない 
+       bodyフォームが表示される 
+       bodyフォームに値が入っていない 
+       Create Bookボタンが表示される 
+  自分のユーザ詳細画面のテスト
+    表示の確認
+       URLが正しい 
+       投稿一覧のユーザ画像のリンク先が正しい 
+       投稿一覧に自分の投稿のtitleが表示され、リンクが正しい 
+       投稿一覧に自分の投稿のbodyが表示される 
+       他人の投稿は表示されない 
+    サイドバーの確認
+       自分の名前と紹介文が表示される 
+       自分のユーザ編集画面へのリンクが存在する 
+       「New book」と表示される (FAILED - 9) 
+       titleフォームが表示される 
+       titleフォームに値が入っていない 
+       bodyフォームが表示される 
+       bodyフォームに値が入っていない 
+       Create Bookボタンが表示される 
+  自分のユーザ情報編集画面のテスト
+    表示の確認
+       URLが正しい 
+       名前編集フォームに自分の名前が表示される 
+       画像編集フォームが表示される 
+       自己紹介編集フォームに自分の自己紹介文が表示される 
+       Update Userボタンが表示される 
+    更新成功のテスト
+       nameが正しく更新される 
+       introductionが正しく更新される 
+       リダイレクト先が、自分のユーザ詳細画面になっている 
+
+[STEP3] 仕上げのテスト
+  サクセスメッセージのテスト
+     ユーザ新規登録成功時 
+     ユーザログイン成功時 
+     ユーザログアウト成功時 
+     ユーザのプロフィール情報更新成功時 
+     投稿データの新規投稿成功時: 投稿一覧画面から行います。 
+     投稿データの更新成功時 
+  処理失敗時のテスト
+    ユーザ新規登録失敗: nameを1文字にする
+       新規登録されない 
+       新規登録画面を表示しており、フォームの内容が正しい 
+       バリデーションエラーが表示される 
+    ユーザのプロフィール情報編集失敗: nameを1文字にする
+       更新されない 
+       ユーザ編集画面を表示しており、フォームの内容が正しい 
+       バリデーションエラーが表示される 
+    投稿データの新規投稿失敗: 投稿一覧画面から行い、titleを空にする
+       投稿が保存されない 
+       投稿一覧画面を表示している 
+       新規投稿フォームの内容が正しい 
+       バリデーションエラーが表示される 
+    投稿データの更新失敗: titleを空にする
+       投稿が更新されない 
+       投稿編集画面を表示しており、フォームの内容が正しい 
+       エラーメッセージが表示される 
+  ログインしていない場合のアクセス制限のテスト: アクセスできず、ログイン画面に遷移する
+     ユーザ一覧画面 
+     ユーザ詳細画面 
+     ユーザ情報編集画面 
+     投稿一覧画面 
+     投稿詳細画面 
+     投稿編集画面 
+  他人の画面のテスト
+    他人の投稿詳細画面のテスト
+      表示内容の確認
+         URLが正しい 
+         「Book detail」と表示される (FAILED - 10) 
+         ユーザ画像・名前のリンク先が正しい 
+         投稿のtitleが表示される 
+         投稿のopinionが表示される 
+         投稿の編集リンクが表示されない 
+         投稿の削除リンクが表示されない 
+      サイドバーの確認
+         他人の名前と紹介文が表示される 
+         他人のユーザ編集画面へのリンクが存在する 
+         自分の名前と紹介文は表示されない 
+         自分のユーザ編集画面へのリンクは存在しない 
+    他人の投稿編集画面
+       遷移できず、投稿一覧画面にリダイレクトされる (FAILED - 11) 
+    他人のユーザ詳細画面のテスト
+      表示の確認
+         URLが正しい 
+         投稿一覧のユーザ画像のリンク先が正しい (FAILED - 12) 
+         投稿一覧に他人の投稿のtitleが表示され、リンクが正しい 
+         投稿一覧に他人の投稿のopinionが表示される 
+         自分の投稿は表示されない 
+      サイドバーの確認
+         他人の名前と紹介文が表示される 
+         他人のユーザ編集画面へのリンクが存在する 
+         自分の名前と紹介文は表示されない 
+         自分のユーザ編集画面へのリンクは存在しない 
+    他人のユーザ情報編集画面
+       遷移できず、自分のユーザ詳細画面にリダイレクトされる 
+  グリッドシステムのテスト: container, row, col-md-〇を正しく使えている
+     ユーザ一覧画面 
+     ユーザ詳細画面 
+     投稿一覧画面 
+     投稿詳細画面 
+  アイコンのテスト
+    トップ画面
+       本のアイコンが表示される 
+    アバウト画面
+       本のアイコンが表示される 
+    ヘッダー: ログインしていない場合
+       Homeリンクのアイコンが表示される 
+       Aboutリンクのアイコンが表示される 
+       Sign upリンクのアイコンが表示される 
+       Log inリンクのアイコンが表示される 
+    ヘッダー: ログインしている場合
+       Homeリンクのアイコンが表示される 
+       Usersリンクのアイコンが表示される 
+       Booksリンクのアイコンが表示される 
+       Log outリンクのアイコンが表示される 
+    サイドバー
+       ユーザ一覧画面でレンチアイコンが表示される 
+       ユーザ詳細画面でレンチアイコンが表示される 
+       投稿一覧画面でレンチアイコンが表示される 
+       投稿詳細画面でレンチアイコンが表示される 
+
+Failures:
+
+  1) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 表示内容の確認 自分と他人の画像のリンク先が正しい
+      Failure/Error: expect(page).to have_link '', href: user_path(other_book.user) 
+        expected to find link "" with href "/users/1" but there were no matches 
+      # ./spec/system/02_after_login_spec.rb:52:in `block (4 levels) in <main>' 
+
+  2) [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 「New book」と表示される
+      Failure/Error: expect(page).to have_content 'New book' 
+        expected to find text "New book" in "Bookers\nHome Users Books Log out\nUser Info\nname m04q4nocm2 introduction mk21o76y2konlbvvforu\nNew Book\nTitle\nBody\nBooks\nTitle Opinion klcwo nxwmj5s16fxhd319lgrd w864d xrvg3vjxymjtvy4om2an\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:73:in `block (4 levels) in <main>' 
+
+  3) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 表示内容の確認 「Book detail」と表示される
+      Failure/Error: expect(page).to have_content 'Book detail' 
+        expected to find text "Book detail" in "Bookers\nHome Users Books Log out\nUser Info\nname bsq9yx7oyi introduction htirrankm18yz90rsuy8\nNew Book\nTitle\nBody x5g3yb9wmgjt0774u256\nBook Detail\nbsq9yx7oyi ydg36 x5g3yb9wmgjt0774u256 Edit Destroy\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:118:in `block (4 levels) in <main>' 
+
+  4) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 「New book」と表示される
+      Failure/Error: expect(page).to have_content 'New book' 
+        expected to find text "New book" in "Bookers\nHome Users Books Log out\nUser Info\nname ocx01vcss4 introduction lee919emz156rtz44f9t\nNew Book\nTitle\nBody e7bueazdqbgkyolqrqxg\nBook Detail\nocx01vcss4 earaz e7bueazdqbgkyolqrqxg Edit Destroy\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:146:in `block (4 levels) in <main>' 
+
+  5) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+      Failure/Error: expect(find_field('book[body]').text).to be_blank 
+        expected `"s50csrh4rh2p8i6zsxwl".blank?` to be truthy, got false 
+      # ./spec/system/02_after_login_spec.rb:158:in `block (4 levels) in <main>' 
+
+  6) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される
+      Failure/Error: expect { click_button 'Create Book' }.to change(user.books, :count).by(1) 
+        expected `Book::ActiveRecord_Associations_CollectionProxy#count` to have changed by 1, but was changed by 0 
+      # ./spec/system/02_after_login_spec.rb:172:in `block (4 levels) in <main>' 
+
+  7) [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト リダイレクト先が、更新した投稿の詳細画面になっている
+      Failure/Error: expect(page).to have_content 'Book detail' 
+        expected to find text "Book detail" in "Bookers\nHome Users Books Log out\nYou have updated book successfully.\nUser Info\nname ld2ls0d0q6 introduction uqzuxyoy4fxmuod1msq6\nNew Book\nTitle\nBody vy3ilkqcdkvd5gjckn9\nBook Detail\nld2ls0d0q6 g1by vy3ilkqcdkvd5gjckn9 Edit Destroy\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:253:in `block (4 levels) in <main>' 
+
+  8) [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 「New book」と表示される
+      Failure/Error: expect(page).to have_content 'New book' 
+        expected to find text "New book" in "Bookers\nHome Users Books Log out\nUser Info\nname gal38u6rmp introduction 48237d8aywgyfi9fjqx8\nNew Book\nTitle\nBody\nUsers\nimage name 53jbrydn2n Show gal38u6rmp Show\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:289:in `block (4 levels) in <main>' 
+
+  9) [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 「New book」と表示される
+      Failure/Error: expect(page).to have_content 'New book' 
+        expected to find text "New book" in "Bookers\nHome Users Books Log out\nUser Info\nname 0ztllipnnc introduction 4aikxuofmfja36udg61y\nNew Book\nTitle\nBody\nBooks\nTitle Opinion 00yts 1ai6iaec2n4dde1hs77i\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+      # ./spec/system/02_after_login_spec.rb:343:in `block (4 levels) in <main>' 
+
+  10) [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト 表示内容の確認 「Book detail」と表示される
+       Failure/Error: expect(page).to have_content 'Book detail' 
+         expected to find text "Book detail" in "Bookers\nHome Users Books Log out\nUser Info\nname db2mxgthwx introduction wsg4a14avb6y33a6mibf\nNew Book\nTitle\nBody zffrxn0nd3u9t9e7xtiv\nBook Detail\ndb2mxgthwx 33x8m zffrxn0nd3u9t9e7xtiv\nCopyRight Infratop.inc". (However, it was found 1 time using a case insensitive search.) 
+       # ./spec/system/03_finishing_touches_spec.rb:223:in `block (5 levels) in <main>' 
+
+  11) [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿編集画面 遷移できず、投稿一覧画面にリダイレクトされる
+       Failure/Error: expect(current_path).to eq '/books' 
+        
+         expected: "/books" 
+              got: "/books/2" 
+        
+         (compared using ==) 
+       # ./spec/system/03_finishing_touches_spec.rb:263:in `block (4 levels) in <main>' 
+
+  12) [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧のユーザ画像のリンク先が正しい
+       Failure/Error: expect(page).to have_link '', href: user_path(other_user) 
+         expected to find link "" with href "/users/1" but there were no matches 
+       # ./spec/system/03_finishing_touches_spec.rb:277:in `block (5 levels) in <main>' 
+
+Finished in 33.29 seconds (files took 3.21 seconds to load)
+ 199 examples, 12 failures 
+
+Failed examples:
+
+ rspec ./spec/system/02_after_login_spec.rb:50   # [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト 表示内容の確認 自分と他人の画像のリンク先が正しい 
+ rspec ./spec/system/02_after_login_spec.rb:72   # [STEP2] ユーザログイン後のテスト 投稿一覧画面のテスト サイドバーの確認 「New book」と表示される 
+ rspec ./spec/system/02_after_login_spec.rb:117   # [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 表示内容の確認 「Book detail」と表示される 
+ rspec ./spec/system/02_after_login_spec.rb:145   # [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 「New book」と表示される 
+ rspec ./spec/system/02_after_login_spec.rb:157   # [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない 
+ rspec ./spec/system/02_after_login_spec.rb:171   # [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される 
+ rspec ./spec/system/02_after_login_spec.rb:251   # [STEP2] ユーザログイン後のテスト 自分の投稿編集画面のテスト 編集成功のテスト リダイレクト先が、更新した投稿の詳細画面になっている 
+ rspec ./spec/system/02_after_login_spec.rb:288   # [STEP2] ユーザログイン後のテスト ユーザ一覧画面のテスト サイドバーの確認 「New book」と表示される 
+ rspec ./spec/system/02_after_login_spec.rb:342   # [STEP2] ユーザログイン後のテスト 自分のユーザ詳細画面のテスト サイドバーの確認 「New book」と表示される 
+ rspec ./spec/system/03_finishing_touches_spec.rb:222   # [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿詳細画面のテスト 表示内容の確認 「Book detail」と表示される 
+ rspec ./spec/system/03_finishing_touches_spec.rb:261   # [STEP3] 仕上げのテスト 他人の画面のテスト 他人の投稿編集画面 遷移できず、投稿一覧画面にリダイレクトされる 
+ rspec ./spec/system/03_finishing_touches_spec.rb:276   # [STEP3] 仕上げのテスト 他人の画面のテスト 他人のユーザ詳細画面のテスト 表示の確認 投稿一覧のユーザ画像のリンク先が正しい 
+
