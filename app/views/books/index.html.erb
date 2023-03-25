@@ -11,9 +11,9 @@
     </ul>
   </div>
   <% end %>
-  
+
   <%= render 'users/user_info', user: current_user %>
-  
+
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <table class='table'>
@@ -21,13 +21,14 @@
           <th></th>
           <th>Title</th>
           <th>Opinion</th>
+          <th></th>
         </tr>
         <% @books.each do |book| %>
           <tr>
             <td>
               <%= link_to user_path(book.user.id) do %>
                 <%= image_tag book.user.get_profile_image(100, 100) %>
-              <% end %>  
+              <% end %>
             </td>
             <td>
               <%= link_to book_path(book.id) do %>
@@ -35,6 +36,21 @@
                 <% end %>
             </td>
             <td><%= book.body %></td>
+            <td>
+              <% if book.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to book_favorites_path(book), method: :delete do %>
+                    ♡<%= book.favorites.count %>
+                  <% end %>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to book_favorites_path(book), method: :post do %>
+                    ♥<%= book.favorites.count %>
+                  <% end %>
+                </p>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </table>
